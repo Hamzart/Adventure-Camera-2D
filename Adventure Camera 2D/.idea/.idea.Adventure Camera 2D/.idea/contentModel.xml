@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Hamza\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Hamza\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_Adventure Camera 2D.-475610696.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Hamza\Documents\GitHub\Adventure-Camera-2D\Adventure Camera 2D" t="IncludeFlat">
+      <e p="Adventure Camera 2D.sln" t="IncludeFlat" />
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
