@@ -58,15 +58,17 @@ public class CameraCore : MonoBehaviour
 
     Vector2 boundMin,boundMax;
     public Bounds cameraBounds;
+    Transform myposition;
 
 
 
     private void Start()
     {
+        myposition = transform;
         _camera = GetComponent<Camera>();
         _camera.orthographic = true;
         _cameraSize = _camera.orthographicSize;
-        cameraBounds.SetMinMax(new Vector3(transform.position.x - CameraWidth() / 2, transform.position.y - CameraHeight()/2 ),new Vector3(transform.position.x + CameraWidth() / 2, transform.position.y + CameraHeight() / 2));
+        cameraBounds.SetMinMax(new Vector3(myposition.position.x - CameraWidth() / 2, myposition.position.y - CameraHeight()/2 ),new Vector3(myposition.position.x + CameraWidth() / 2, myposition.position.y + CameraHeight() / 2));
         
     }
 
@@ -79,7 +81,7 @@ public class CameraCore : MonoBehaviour
     {
 
 
-
+        myposition = transform;
         _camera = GetComponent<Camera>();
         _camera.orthographic = true;
         _cameraSize = _camera.orthographicSize;
@@ -121,11 +123,10 @@ public class CameraCore : MonoBehaviour
         if(useDeadZone)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(new Vector3(transform.position.x - deadZoneWidth * 0.5f, transform.position.y - deadZoneHeight * 0.5f, 0), new Vector3(transform.position.x - deadZoneWidth * 0.5f, transform.position.y + deadZoneHeight * 0.5f, 0));
-            Gizmos.DrawLine(new Vector3(transform.position.x - deadZoneWidth * 0.5f, transform.position.y + deadZoneHeight * 0.5f, 0), new Vector3(transform.position.x + deadZoneWidth * 0.5f, transform.position.y + deadZoneHeight * 0.5f, 0));
-            Gizmos.DrawLine(new Vector3(transform.position.x + deadZoneWidth * 0.5f, transform.position.y + deadZoneHeight * 0.5f, 0), new Vector3(transform.position.x + deadZoneWidth * 0.5f, transform.position.y - deadZoneHeight * 0.5f, 0));
-            Gizmos.DrawLine(new Vector3(transform.position.x + deadZoneWidth * 0.5f, transform.position.y - deadZoneHeight * 0.5f, 0), new Vector3(transform.position.x - deadZoneWidth * 0.5f, transform.position.y - deadZoneHeight * 0.5f, 0));
-            //  Gizmos.DrawGUITexture(new Rect(transform.position - new Vector3(deadZoneWidth/2,deadZoneHeight/2,0), new Vector2(deadZoneWidth, deadZoneHeight)),texture);
+            Gizmos.DrawLine(new Vector3(myposition.position.x - deadZoneWidth * 0.5f, myposition.position.y - deadZoneHeight * 0.5f, 0), new Vector3(myposition.position.x - deadZoneWidth * 0.5f, myposition.position.y + deadZoneHeight * 0.5f, 0));
+            Gizmos.DrawLine(new Vector3(myposition.position.x - deadZoneWidth * 0.5f, myposition.position.y + deadZoneHeight * 0.5f, 0), new Vector3(myposition.position.x + deadZoneWidth * 0.5f, myposition.position.y + deadZoneHeight * 0.5f, 0));
+            Gizmos.DrawLine(new Vector3(myposition.position.x + deadZoneWidth * 0.5f, myposition.position.y + deadZoneHeight * 0.5f, 0), new Vector3(myposition.position.x + deadZoneWidth * 0.5f, myposition.position.y - deadZoneHeight * 0.5f, 0));
+            Gizmos.DrawLine(new Vector3(myposition.position.x + deadZoneWidth * 0.5f, myposition.position.y - deadZoneHeight * 0.5f, 0), new Vector3(myposition.position.x - deadZoneWidth * 0.5f, myposition.position.y - deadZoneHeight * 0.5f, 0));
 
 
         }
@@ -156,11 +157,11 @@ public class CameraCore : MonoBehaviour
 
         if(boundToLimits)
         {
-            transform.position = Vector3.Lerp(transform.position, LimitersRegion(min, max), Time.smoothDeltaTime * cameraSpeed);
+            myposition.position = Vector3.Lerp(myposition.position, LimitersRegion(min, max), Time.smoothDeltaTime * cameraSpeed);
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.smoothDeltaTime * cameraSpeed);
+            myposition.position = Vector3.Lerp(myposition.position, targetPosition, Time.smoothDeltaTime * cameraSpeed);
         }
 
     }
