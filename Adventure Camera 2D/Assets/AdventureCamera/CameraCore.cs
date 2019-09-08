@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System.Collections;
 
 [RequireComponent(typeof(Camera))]
 [DisallowMultipleComponent]
@@ -7,15 +8,56 @@ using UnityEditor;
 
 public class CameraCore : MonoBehaviour
 {
-    public bool boundToRegion = true;
+
+     public enum Target
+    {
+        Mouse,
+        GameObject
+    }
+
+
+
+    [Header("Camera Target")]
+    public bool following;
+    public Target cameraTarget;
+    public Transform target;
+    Vector3 targetPosition;
+    public float cameraSpeed = 10.0f;
+
+    // Target for the Camera to follow
+
     private Camera _camera;
     private float _cameraSize;
-     Bounds cameraLimits;
+    private Bounds cameraLimits;
 
     // Camera Limits
+    [Header("Camera Limits")]
+    public bool boundToLimits = true;
     public Vector2 max;
     public Vector2 min;
 
+    [Header("Target Offset")]
+    public Vector3 offset = new Vector3(0,0,-10);
+
+
+    [Header("Dead Zone")]
+    public bool useDeadZone = false;
+
+    [Range(0, 1)]
+    public float width = 0.3f;
+    [Range(0, 1)]
+    public float height = 0.2f;
+
+    public float deadZoneWidth;
+    public float deadZoneHeight;
+
+    [Header("Look Ahead")]
+    public bool lookAhead = false;
+    public float distance = 1.0f;
+
+
+    Vector2 boundMin,boundMax;
+    public Bounds cameraBounds;
 
 
 
@@ -24,12 +66,28 @@ public class CameraCore : MonoBehaviour
         _camera = GetComponent<Camera>();
         _camera.orthographic = true;
         _cameraSize = _camera.orthographicSize;
-
+        cameraBounds.SetMinMax(new Vector3(transform.position.x - CameraWidth() / 2, transform.position.y - CameraHeight()/2 ),new Vector3(transform.position.x + CameraWidth() / 2, transform.position.y + CameraHeight() / 2));
+        
     }
 
+
+    // Draw the Camera Limits Gizmos
+
+
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        if(boundToRegion)
+
+
+
+        _camera = GetComponent<Camera>();
+        _camera.orthographic = true;
+        _cameraSize = _camera.orthographicSize;
+
+
+
+
+        if (boundToLimits)
         {
             float temp;
 
@@ -54,19 +112,64 @@ public class CameraCore : MonoBehaviour
             Gizmos.DrawLine(new Vector3(cameraLimits.min.x, cameraLimits.max.y, 0), cameraLimits.max);
             Gizmos.DrawLine(cameraLimits.max, new Vector3(cameraLimits.max.x, cameraLimits.min.y, 0));
             Gizmos.DrawLine(new Vector3(cameraLimits.max.x, cameraLimits.min.y, 0), cameraLimits.min);
-            
+
+            deadZoneHeight = CameraHeight() * height;
+            deadZoneWidth = CameraWidth() * width;
+
         }
-        
+
+        if(useDeadZone)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(new Vector3(transform.position.x - deadZoneWidth / 2, transform.position.y - deadZoneHeight /2,0) , new Vector3(transform.position.x - deadZoneWidth / 2, transform.position.y + deadZoneHeight / 2, 0));
+            Gizmos.DrawLine(new Vector3(transform.position.x - deadZoneWidth / 2, transform.position.y + deadZoneHeight / 2, 0), new Vector3(transform.position.x + deadZoneWidth / 2, transform.position.y + deadZoneHeight / 2, 0));
+            Gizmos.DrawLine(new Vector3(transform.position.x + deadZoneWidth / 2, transform.position.y + deadZoneHeight / 2, 0), new Vector3(transform.position.x + deadZoneWidth / 2, transform.position.y - deadZoneHeight / 2, 0));
+            Gizmos.DrawLine(new Vector3(transform.position.x + deadZoneWidth / 2, transform.position.y - deadZoneHeight / 2, 0), new Vector3(transform.position.x - deadZoneWidth / 2, transform.position.y - deadZoneHeight / 2, 0));
+            //  Gizmos.DrawGUITexture(new Rect(transform.position - new Vector3(deadZoneWidth/2,deadZoneHeight/2,0), new Vector2(deadZoneWidth, deadZoneHeight)),texture);
+
+
+        }
+
+#endif
+
     }
 
-    public void StartFollow()
+    void Update()
     {
-        
+        if(following)
+        {
+            Follow();
+        }
     }
+
+    public void Follow()
+    {
+        if(cameraTarget==Target.Mouse)
+        {
+            targetPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+        }
+        else if (cameraTarget == Target.GameObject)
+        {
+            targetPosition = target.position;
+
+        }
+
+        if(boundToLimits)
+        {
+            transform.position = Vector3.Lerp(transform.position, LimitersRegion(min, max), Time.smoothDeltaTime * cameraSpeed);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.smoothDeltaTime * cameraSpeed);
+        }
+
+    }
+
+
 
     public void StopFollow()
     {
-        
+        following = false;
     }
     
     public void ZoomIn()
@@ -110,4 +213,45 @@ public class CameraCore : MonoBehaviour
         
     }
 
+    float CameraWidth()
+    {
+       //Debug.Log(_camera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x);
+
+        return _camera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+    }
+
+    float CameraHeight()
+    {
+        //Debug.Log(_camera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y);
+        return _camera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
+    }
+
+    private Vector3 LimitersRegion(Vector2 min,Vector2 max)
+    {
+        float _minX, _minY;
+
+        boundMin.x = min.x + CameraWidth() / 2;
+        boundMax.x = max.x - CameraWidth() / 2;
+        boundMin.y = min.y + CameraHeight() / 2;
+        boundMax.y = max.y - CameraHeight() / 2;
+  
+        _minX = Mathf.Clamp(targetPosition.x + offset.x, boundMin.x, boundMax.x);
+        _minY = Mathf.Clamp(targetPosition.y + offset.y, boundMin.y, boundMax.y);
+        
+
+        return new Vector3(_minX, _minY, offset.z);
+
+        
+    }
+
+
+
+
+
+
+
+
+
 }
+
+
