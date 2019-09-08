@@ -121,10 +121,10 @@ public class CameraCore : MonoBehaviour
         if(useDeadZone)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(new Vector3(transform.position.x - deadZoneWidth / 2, transform.position.y - deadZoneHeight /2,0) , new Vector3(transform.position.x - deadZoneWidth / 2, transform.position.y + deadZoneHeight / 2, 0));
-            Gizmos.DrawLine(new Vector3(transform.position.x - deadZoneWidth / 2, transform.position.y + deadZoneHeight / 2, 0), new Vector3(transform.position.x + deadZoneWidth / 2, transform.position.y + deadZoneHeight / 2, 0));
-            Gizmos.DrawLine(new Vector3(transform.position.x + deadZoneWidth / 2, transform.position.y + deadZoneHeight / 2, 0), new Vector3(transform.position.x + deadZoneWidth / 2, transform.position.y - deadZoneHeight / 2, 0));
-            Gizmos.DrawLine(new Vector3(transform.position.x + deadZoneWidth / 2, transform.position.y - deadZoneHeight / 2, 0), new Vector3(transform.position.x - deadZoneWidth / 2, transform.position.y - deadZoneHeight / 2, 0));
+            Gizmos.DrawLine(new Vector3(transform.position.x - deadZoneWidth * 0.5f, transform.position.y - deadZoneHeight * 0.5f, 0), new Vector3(transform.position.x - deadZoneWidth * 0.5f, transform.position.y + deadZoneHeight * 0.5f, 0));
+            Gizmos.DrawLine(new Vector3(transform.position.x - deadZoneWidth * 0.5f, transform.position.y + deadZoneHeight * 0.5f, 0), new Vector3(transform.position.x + deadZoneWidth * 0.5f, transform.position.y + deadZoneHeight * 0.5f, 0));
+            Gizmos.DrawLine(new Vector3(transform.position.x + deadZoneWidth * 0.5f, transform.position.y + deadZoneHeight * 0.5f, 0), new Vector3(transform.position.x + deadZoneWidth * 0.5f, transform.position.y - deadZoneHeight * 0.5f, 0));
+            Gizmos.DrawLine(new Vector3(transform.position.x + deadZoneWidth * 0.5f, transform.position.y - deadZoneHeight * 0.5f, 0), new Vector3(transform.position.x - deadZoneWidth * 0.5f, transform.position.y - deadZoneHeight * 0.5f, 0));
             //  Gizmos.DrawGUITexture(new Rect(transform.position - new Vector3(deadZoneWidth/2,deadZoneHeight/2,0), new Vector2(deadZoneWidth, deadZoneHeight)),texture);
 
 
