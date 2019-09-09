@@ -132,6 +132,8 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420034}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -162,21 +164,13 @@ MonoBehaviour:
   following: 1
   cameraTarget: 0
   target: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   cameraSpeed: 10
-  boundToLimits: 1
-  max: {x: 54.73, y: 29.4}
-  min: {x: -52.9, y: -29.3}
+  camera: {fileID: 519420031}
+  cameraSize: 5
   offset: {x: 0, y: 0, z: -10}
-  useDeadZone: 1
-  width: 0.221
-  height: 0.183
-  deadZoneWidth: 3.9267397
-  deadZoneHeight: 1.8299999
   lookAhead: 0
   distance: 1
-  cameraBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 8.888889, y: 5, z: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -234,3 +228,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19aac8836cb1e0499bf7c62e07b657f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDeadZone: 1
+  width: 0.31
+  height: 0.2
+  deadZoneWidth: 5.5168247
+  deadZoneHeight: 2
+  cam: {fileID: 519420030}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91149d7501336640a31c006ea25bb8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundToLimits: 1
+  height: 20
+  width: 40
+  limiterPos: {x: 0, y: 0}
+  cam: {fileID: 519420030}
