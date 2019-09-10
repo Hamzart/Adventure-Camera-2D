@@ -27,11 +27,7 @@ public class CameraLimiters : MonoBehaviour
         cam = GetComponent<CameraCore>();
 
     }
-    public void SetZoom(float zoom)
-    {
-        cam.cameraSize = zoom;
-
-    }
+   
 
 
     //DRAW Camera Limits Zone ( Red Box )

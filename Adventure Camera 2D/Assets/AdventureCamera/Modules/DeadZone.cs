@@ -15,6 +15,7 @@ public class DeadZone :  MonoBehaviour
     [Range(0, 1)]
     public float height = 0.2f;
 
+    public bool ignoreY = false;
     [HideInInspector]
     public  float deadZoneWidth;
     [HideInInspector]
@@ -25,12 +26,6 @@ public class DeadZone :  MonoBehaviour
     void Start()
     {
         cam = GetComponent<CameraCore>();
-    }
-    // Update is called once per frame
-   public void SetZoom(float zoom)
-    {
-        cam.cameraSize = zoom;
-    
     }
 
     void OnDrawGizmos()

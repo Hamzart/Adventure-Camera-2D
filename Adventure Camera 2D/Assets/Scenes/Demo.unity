@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 160794513}
   - component: {fileID: 160794512}
   m_Layer: 0
-  m_Name: New Sprite (1)
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,6 +294,7 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420034}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -321,16 +322,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fdbd18234cd804bb7762c1b1c3ba7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  following: 1
+  cameraSize: 5
+  active: 1
+  cameraSpeed: 3
   cameraTarget: 0
   target: {fileID: 416642098}
   targetPosition: {x: 0, y: 0, z: 0}
-  cameraSpeed: 10
-  camera: {fileID: 519420031}
-  cameraSize: 5
   offset: {x: 0, y: 0, z: -10}
   lookAhead: 0
-  distance: 1
+  detectionType: 1
+  targetDirection: 1
+  aheadDistance: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -401,10 +403,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useDeadZone: 1
-  width: 0.53
-  height: 0.2
-  deadZoneWidth: 9.423542
-  deadZoneHeight: 2
+  width: 0.47
+  height: 0.38
+  ignoreY: 0
+  deadZoneWidth: 8.356727
+  deadZoneHeight: 3.8
   cam: {fileID: 519420030}
 --- !u!114 &519420034
 MonoBehaviour:
@@ -423,3 +426,17 @@ MonoBehaviour:
   width: 40
   limiterPos: {x: 0, y: 0}
   cam: {fileID: 519420030}
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffc22be0a033b74e995a2c50383df32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  zoomSpeed: 3
