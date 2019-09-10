@@ -53,7 +53,7 @@ public class CameraCore : MonoBehaviour
 
     
     private Transform myposition;
-
+    Vector3 aimPosition;
 
 
     private void Start()
@@ -93,6 +93,9 @@ public class CameraCore : MonoBehaviour
         camera.orthographic = true;
         cameraSize = camera.orthographicSize;
 
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawCube(new Vector3(aimPosition.x ,aimPosition.y,0 ), new Vector3(0.2f, 0.2f, 0));
+
     }
 
 #endif
@@ -103,11 +106,11 @@ public class CameraCore : MonoBehaviour
         {
             if (cameraTarget == Target.Mouse)
             {
-                targetPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+                aimPosition = camera.ScreenToWorldPoint(Input.mousePosition);
             }
             else if (cameraTarget == Target.GameObject)
             {
-                targetPosition = target.position;
+                aimPosition = target.position;
 
             }
 
@@ -115,28 +118,31 @@ public class CameraCore : MonoBehaviour
             {
                 if(deadZone.useDeadZone)
                 {
-                    if(targetPosition.x < GetPosition().position.x - deadZone.deadZoneWidth * 0.5f |
-                        targetPosition.x > GetPosition().position.x + deadZone.deadZoneWidth * 0.5f |
-                        targetPosition.y < GetPosition().position.y - deadZone.deadZoneHeight * 0.5f |
-                        targetPosition.y > GetPosition().position.y + deadZone.deadZoneHeight * 0.5f)
+                    if( aimPosition.x < GetPosition().position.x - deadZone.deadZoneWidth * 0.5f |
+                        aimPosition.x > GetPosition().position.x + deadZone.deadZoneWidth * 0.5f |
+                        aimPosition.y < GetPosition().position.y - deadZone.deadZoneHeight * 0.5f |
+                        aimPosition.y > GetPosition().position.y + deadZone.deadZoneHeight * 0.5f)
                     {
 
-                        Follow();
-
+                        targetPosition = aimPosition;
                     }
 
                 }
 
                 else
                 {
-                    Follow();
+                    targetPosition = aimPosition;
                 }
             }
             else
             {
-                Follow();
+
+                targetPosition = aimPosition;
 
             }
+
+            Follow();
+
         }
     }
 
@@ -151,14 +157,14 @@ public class CameraCore : MonoBehaviour
             }
             else
             {
-                myposition.position = Vector3.Lerp(myposition.position, targetPosition, Time.smoothDeltaTime * cameraSpeed);
+                myposition.position = Vector3.Lerp(myposition.position, new Vector3(targetPosition.x + offset.x, targetPosition.y + offset.y,targetPosition.z + offset.z), Time.smoothDeltaTime * cameraSpeed);
 
             }
 
         }
         else if(!boundToLimitsAvailable)
         {
-             myposition.position = Vector3.Lerp(myposition.position, targetPosition, Time.smoothDeltaTime * cameraSpeed);
+             myposition.position = Vector3.Lerp(myposition.position, targetPosition + offset, Time.smoothDeltaTime * cameraSpeed);
             
         }
 
