@@ -5,15 +5,15 @@
 
 # Behaviors :
 
-***Version 0.2
+***Version 0.2***
 
 - Follow  :the Mouse pointer or a GameObject like your Player.
 - Limiter : Region for the camera, Camera will not leave the limiter Bounds even if the Target leave.
 - DeadZone : to prevent the camera from moving while the Target is inside the DeadZone area.
 - Look Ahead : to make the camera detect the target direction and Move ahead of it by a defined distance:
-    1. Detect by Rotation on the Y axis.
-    2. Detect by Scale on the X axis, if the Target Scale on the X axis is less then 0 or higher than 0.
-    3. Detect by Velocity ( Untested yet).
+    - Detect by Rotation on the Y axis.
+    - Detect by Scale on the X axis, if the Target Scale on the X axis is less then 0 or higher than 0.
+    - Detect by Velocity ( Untested yet).
 
 - Camera Zoom : ability to smoothly zoom smoothly to a certain size.
 - Offset : set an offset between the Camera and the Target to follow.
