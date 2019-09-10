@@ -23,11 +23,22 @@
 
 1. Select a Camera > Add Component > Adventure Camera 2D > **Core**.
 
-Thats it, now your Camera will be functioning like charm, you do not even need to switch it to Orthogonal projection, **CameraCore** will take care of everything. **CameraCore** is the base of the 2D aventure camera, any other module should have.
+Thats it, now your Camera will be functioning like charm, you do not even need to switch it to Orthogonal projection, **CameraCore** will take care of everything. **CameraCore** is the base of the **2D Adventure Aamera**, any other module should have.
 You do not even need to create a Camera in the first place, Select any Object in the Scene add CameraCore to it, and you will have a CameraThere. 
 
 Now You can Add other Modules to entend the **CameraCore** functionalities.
 There 3 Separate Modules currently: 
+
   - DeadZone
   - Limiter
   - Zooming
+
+
+# TO DO List :
+
+More Features should be added in the future including :
+
+- Camera Shake :
+- Parallax Group :
+- Auto Zoom Zone :
+...
