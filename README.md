@@ -1,6 +1,6 @@
 # Adventure Camera 2D for Unity
 
-*Multipurpose modular 2D camera for Unity, can be used out of the box in different game genres, no coding required unless you want to extend the functionalities.
+Multipurpose modular 2D camera for Unity, can be used out of the box in different game genres, no coding required unless you want to extend the functionalities.
 
 
 # Behaviors :
@@ -41,4 +41,4 @@ More Features should be added in the future including :
 - Camera Shake :
 - Parallax Group :
 - Auto Zoom Zone :
-...
+- ...etc
