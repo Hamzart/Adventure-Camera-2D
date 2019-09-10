@@ -26,7 +26,7 @@ Multipurpose modular 2D camera for Unity, can be used out of the box in differen
 Thats it, now your Camera will be functioning like charm, you do not even need to switch it to Orthogonal projection, **CameraCore** will take care of everything. **CameraCore** is the base of the **2D Adventure Aamera**, any other module depends on the CoreCamera.
 You do not even need to create a Camera in the first place, Select any Object in the Scene add CameraCore to it, and you will have a CameraThere. 
 
-Now You can Add other Modules to entend the **CameraCore** functionalities.
+Now You can Add other Modules to extend the **CameraCore** functionalities.
 There 3 Separate Modules currently: 
 
   - DeadZone
