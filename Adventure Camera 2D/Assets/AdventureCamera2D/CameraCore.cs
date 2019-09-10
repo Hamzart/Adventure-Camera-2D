@@ -56,7 +56,7 @@ public class CameraCore : MonoBehaviour
     [Header("Look Ahead")]
     public bool lookAhead = false;
     public LookAhead detectionType;
-    public float targetDirection = 1.0f;
+    private float targetDirection = 1.0f;
     public float aheadDistance = 1.0f;
 
 
@@ -122,17 +122,18 @@ public class CameraCore : MonoBehaviour
  
             if (Input.GetMouseButton(1))
             {
-                SendMessage("SmoothZoom", 3);
+            Zoom(3.0f);
             }
             else if (!Input.GetMouseButton(1))
             {
-                SendMessage("SmoothZoom", 5);
-            }
+            Zoom(5.0f);
+
+        }
 
 
 
 
-            if (active)
+        if (active)
         {
             SetLookAhead();
             if (cameraTarget == Target.Mouse)
@@ -279,57 +280,42 @@ public class CameraCore : MonoBehaviour
         active = false;
     }
     
-    public void ZoomIn()
+    public void Zoom(float zoom)
     {
-        
+        SendMessage("SmoothZoom", zoom);
     }
     
-    public void ZoomOut()
+  
+    public void SetZoom(float zoom)
     {
-        
-    }
-    
-    public void SetZoom()
-    {
-        
-    }
-    
-    
-    public void Rotate()
-    {
-        
-    }
-    
-    public void SetRotation()
-    {
-        
+        SendMessage("SetZoom", zoom);
     }
     
     public void SetLimits()
     {
-        
-    }
-    
-    public void RemoveLimits()
-    {
-        
-    }
-    
-    public void Shake()
-    {
-        
+        if(boundToLimitsAvailable)
+        {
+            limiter.boundToLimits = true;
+        }   
     }
 
+
+    public void RemoveLimits()
+    {
+        if (boundToLimitsAvailable)
+        {
+            limiter.boundToLimits = false;
+        }
+    }
+    
     public float CameraWidth()
     {
-       //Debug.Log(_camera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x);
 
         return _camera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
     }
 
     public float CameraHeight()
     {
-        //Debug.Log(_camera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y);
         return _camera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
     }
 

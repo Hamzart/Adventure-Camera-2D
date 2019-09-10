@@ -174,7 +174,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -6
   m_Sprite: {fileID: 21300000, guid: 305d2435fef1de4429649f7300edb0d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -234,7 +234,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -331,7 +331,6 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: -10}
   lookAhead: 0
   detectionType: 1
-  targetDirection: 1
   aheadDistance: 1
 --- !u!20 &519420031
 Camera:
@@ -343,7 +342,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.12175152, g: 0.13205454, b: 0.1509434, a: 0}
+  m_BackGroundColor: {r: 0.24528301, g: 0.1978462, b: 0.21235846, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -406,7 +405,7 @@ MonoBehaviour:
   width: 0.47
   height: 0.38
   ignoreY: 0
-  deadZoneWidth: 8.356727
+  deadZoneWidth: 8.352785
   deadZoneHeight: 3.8
   cam: {fileID: 519420030}
 --- !u!114 &519420034
